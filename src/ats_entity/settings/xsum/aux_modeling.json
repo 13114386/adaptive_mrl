@@ -1,0 +1,149 @@
+{
+    "model_name":"auxoptim_xsum",
+    "struct":
+    {
+        "attr_map":
+        {
+            "pad":"<pad>",
+            "dim":16,
+            "dropout":0.0
+        },
+        "coref_ctxt":false,
+        "layering": {
+            "coref": {"encoder": "L"},
+            "subword": {"encoder": "L", "decoder": "L"}
+        }
+    },
+    "subword": {
+        "dims": [768, 768],
+        "linearity": false,
+        "aggregation": "add",
+        "depth_size": 837,
+        "depth_dim": 16,
+        "depth_emb_pad": 0,
+        "n_layers": 1
+    },
+    "entity_mrl": {
+        "mlp": {
+            "in_channels": 768,
+            "out_channels": 256
+        },
+        "entity_aggr": {
+            "dims": [768, 768],
+            "linearity": false,
+            "aggregation": "add",
+            "depth_size": 1024,
+            "depth_dim": 16,
+            "depth_emb_pad": 0,
+            "n_layers": 1,
+            "edge_feature": true,
+            "l2_normalize": false
+        },
+        "entity_repr": {
+            "in_channels": 320,
+            "out_channels": 300,
+            "activation": "relu",
+            "batch_norm": true,
+            "dropout": 0.0
+        },
+        "attributed_rel": {
+            "in_channels": 128,
+            "out_channels": 300,
+            "activation": "relu",
+            "batch_norm": true,
+            "dropout": 0.0
+        },
+        "distance_rel": {
+            "n_embeddings": 1024,
+            "n_dims": 300,
+            "padding_idx": null
+        },
+        "ctxt_repr": {
+            "type": "conv",
+            "conv": {
+                "in_channels": [768,256],
+                "filter_sizes": [3,4,5],
+                "num_filters": [256,256,256],
+                "output_size_factor": 3,
+                "layernorm": false,
+                "dropout": 0.0,
+                "max_length": 1024,
+                "feature_dims": 256
+            },
+            "bert": {
+                "hidden_size": 768,
+                "hidden_act": "gelu",
+                "initializer_range": 0.02,
+                "hidden_dropout_prob": 0.1,
+                "num_attention_heads": 2,
+                "num_hidden_layers": 2,
+                "intermediate_size": 1024,
+                "attention_probs_dropout_prob": 0.1,
+                "output_dims": 768,
+                "feature_dims": 256
+            },
+            "max_length": 1024,
+            "num_labels": 1
+        },
+        "weight_func": {
+            "ctxt_repr": {
+                "type": "conv",
+                "conv": {
+                    "in_channels": [768,256],
+                    "filter_sizes": [3,4,5],
+                    "num_filters": [256,256,256],
+                    "output_size_factor": 3,
+                    "layernorm": false,
+                    "dropout": 0.0,
+                    "max_length": 1024,
+                    "feature_dims": 256
+                },
+                "bert": {
+                    "hidden_size": 768,
+                    "hidden_act": "gelu",
+                    "initializer_range": 0.02,
+                    "hidden_dropout_prob": 0.1,
+                    "num_attention_heads": 2,
+                    "num_hidden_layers": 2,
+                    "intermediate_size": 1024,
+                    "attention_probs_dropout_prob": 0.1,
+                    "output_dims": 768,
+                    "feature_dims": 256
+                },
+                "max_length": 1024,
+                "num_labels": 1
+            }
+        },
+        "mention_keyed": true,
+        "aggregate_entity": true,
+        "ngram_bound": 2,
+        "attributed": true,
+        "attribute_order": ["type", "animacy", "number", "gender"],
+        "__comment_score_function": ["similarity", "complex"],
+        "coref_mrl": {
+            "on": true,
+            "__comment_relational": ["none", "attributed", "distance"],
+            "relational": "none",
+            "contextual_weight": true,
+            "weight_func": "espan",
+            "weight_linear_in": 768,
+            "score_function": "complex",
+            "loss_margin": 25.0,
+            "squash_weighting": false,
+            "lambda_w": 1.0
+        },
+        "ctxt_mrl": {
+            "on": true,
+            "contextual_weight": true,
+            "weight_func": "espan",
+            "weight_linear_in": 512,
+            "score_function": "similarity",
+            "loss_margin": 25.0,
+            "squash_weighting": false,
+            "lambda_w": 1.0
+        },
+        "share_weight_ctxt_repr": true
+    },
+    "__comment_exclude_modules__": "Choices from: [subword, coref_mrl]",
+    "exclude_modules": []
+}

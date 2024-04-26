@@ -1,0 +1,11 @@
+{
+	"model_dir":"model_data/bart_ats",
+	"reload":true,
+	"baseline_option":"bart_config.json",
+	"aux_option":"aux_modeling.json",
+	"model_option":"bart_config_model.pth",
+	"train_state_option":"train_state.json",
+	"glob_file_pattern": "*_epoch_*_batch_*",
+	"regex_file_pattern":"(\\w+?)?(?:_best)?_epoch_\\d+_batch_\\d+(\\.\\w+)?$",
+	"regex_num_pattern":"(?:\\w+?)?(?:_best)?_epoch_(\\d+)_batch_\\d+(?:\\.\\w+)?$"
+}

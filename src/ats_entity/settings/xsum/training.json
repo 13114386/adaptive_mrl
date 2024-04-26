@@ -1,0 +1,57 @@
+{
+    "train_state": {"start_epoch":0,
+                    "train_global_count":0,
+                    "batch_count":0,
+                    "best_score":1e10,
+                    "model_id":null},
+
+    "earlystop": {
+        "on":false,
+        "n_epochs":5,
+        "stop_bound":null
+    },
+
+    "per_device_train_batch_size":8,
+    "per_device_eval_batch_size":8,
+    "batch_shuffle":true,
+    "num_workers":1,
+    "pin_memory":false,
+    "max_source_length":1024,
+    "max_length":62,
+    "max_target_length":62,
+    "val_max_target_length":62,
+    "min_target_length": 11,
+    "pad_to_max_length":false,
+    "ignore_pad_token_for_loss":true,
+    "num_beams":6,
+    "length_penalty": 1.0,
+
+    "max_epochs":50,
+    "n_train_iterations":1e9,
+    "n_eval_iterations":1e9,
+    "n_test_iterations":1e9,
+    "gradient_accumulation_steps":1,
+    "grad_clip_freq":10,
+    "grad_clip":0,
+    "save_mode":{
+        "on_epoch":true,
+        "freq":10
+    },
+    "optimizer":{
+        "optimizer":"AdamW",
+        "lr":5e-5,
+        "weight_decay":0.000001,
+        "__comment_lr_scheduler_type": "[linear, cosine_with_restarts]",
+        "lr_scheduler_type":"linear",
+        "num_restarts":1
+    },
+    "warmup": {
+        "__comment__": "epoch_based",
+        "coref_mrl":0,
+        "scheduler":0,
+        "factum":0
+    },
+    "cooldown": {
+        "coref_mrl":50
+    }
+}
